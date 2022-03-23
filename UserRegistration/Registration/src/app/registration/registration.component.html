@@ -1,0 +1,199 @@
+<!-- "CRUD operations for User registration using HTTP client
+
+First Name
+Validations: Allow only Alpha numeric.
+Required
+
+Last Name
+Validations: Allow only Alpha numeric.
+Required
+
+Mobile Number (required number should be EX: (333) 333-3333 while adding should add mask unique)
+Email Address (required should validate email should be unique)
+Date of Birth (use calender (min= 18 yeras, max= 40 Yeras only))
+Gender Radio button
+
+use json-server to mock api.
+Show list of all users (show firstName, lastName, mobile number, email, gender) in table. to show all the details add view button
+use pagination per page should show min 10 users and add drop down for show users (10, 20, 50, 100)" -->
+<nav class="navbar navbar-light bg-primary">
+    <div class="container-fluid">
+        <h1 style="color: aliceblue;">Registration Form</h1>
+        <div class="d-flex">
+            <button (click)="clickAddUser()" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                class="btn btn-success">Add
+                User</button>
+        </div>
+    </div>
+</nav>
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Mobile Number</th>
+            <th scope="col">Email Address</th>
+            <th scope="col">Date Of Birth</th>
+            <th scope="col">Gender</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let row of userData">
+            <td>{{row.id}}</td>
+            <td>{{row.firstName}}</td>
+            <td>{{row.lastName}}</td>
+            <td>{{row.mobileNumber}}</td>
+            <td>{{row.emailAddress}}</td>
+            <td>{{row.dateOfBirth}}</td>
+            <td>{{row.gender}}</td>
+            <td>
+                <button (click)="onEdit(row)" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    class="btn btn-info">Edit</button>
+                <button (click)="deleteUser(row)" class="btn btn-danger mx-3">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">User Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form [formGroup]="formValue">
+                    <div class="form-group">
+                        <label for="firstName">FirstName:</label>
+                        <input type="text" formControlName="firstName" class="form-control" id="firstName"
+                            placeholder="Please Enter Your First Name">
+
+                        <div *ngIf="formValue.controls.lastName.invalid && (formValue.controls.firstName.dirty || formValue.controls.firstName.touched)"
+                            class="error">
+                            <div *ngIf="formValue.controls.firstName.hasError('pattern')" class="text-danger">first name
+                                contains only alphs numarics
+                            </div>
+                            <div *ngIf="formValue.controls.lastName.hasError('required')" class="text-danger">first-name
+                                is required
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <span class="text-danger" *ngIf="formValue.controls['firstName'].dirty&&formValue.hasError(required,firstName)">*First name is Required</span> -->
+                    <!-- <div *ngIf="formValue.controls['firstName'].invalid && formValue.controls['firstName'].touched" class="alert alert-danger">
+                        
+                        <div *ngIf="formValue.controls['firstName'].errors.required">
+                            Name is required.
+                        </div>
+                    </div> -->
+                    <div class="form-group">
+                        <label for="lastName">LastName:</label>
+                        <input type="text" formControlName="lastName" class="form-control" id="lastName"
+                            placeholder="Please Enter Your Last Name">
+                        <div *ngIf="formValue.controls.lastName.invalid && (formValue.controls.lastName.dirty || formValue.controls.lastName.touched)"
+                            class="error">
+                            <div *ngIf="formValue.controls.lastName.hasError('pattern')" class="text-danger">last name
+                                contains only alphs numarics
+                            </div>
+                            <div *ngIf="formValue.controls.lastName.hasError('required')" class="text-danger">last name
+                                is required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="mobile">Mobile:</label>
+                        <input type="number" formControlName="mobileNumber" class="form-control" id="mobile"
+                            placeholder="Please Enter Your Mobile Number" title="You can enter only 10 digits...">
+                        <div *ngIf="formValue.controls.mobileNumber.invalid && (formValue.controls.mobileNumber.dirty || formValue.controls.mobileNumber.touched)"
+                            class="error">
+                            <!-- <div *ngIf="formValue.controls.lastName.hasError('pattern')" class="text-danger">last name
+                                contains only alphs numarics
+                            </div> -->
+                            <div *ngIf="formValue.controls.mobileNumber.hasError('required')" class="text-danger">Mobile
+                                Number
+                                is required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <input type="email" formControlName="emailAddress" class="form-control" id="email"
+                            placeholder="Please Enter Your Email">
+                        <div *ngIf="formValue.controls.emailAddress.invalid && (formValue.controls.emailAddress.dirty || formValue.controls.emailAddress.touched)"
+                            class="error">
+                            <!-- <div *ngIf="formValue.controls.lastName.hasError('pattern')" class="text-danger">last name
+                                contains only alphs numarics
+                            </div> -->
+                            <div *ngIf="formValue.controls.emailAddress.hasError('required')" class="text-danger">Email
+                                is required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="dob">Date of Birth:</label>
+                        <input type="date" formControlName="dateOfBirth" class="form-control" id="dateOfBirth"
+                            name="startDate" value="2022-03-16" min="1982-03-16" max="2022-03-16">
+                        <div *ngIf="formValue.controls.dateOfBirth.invalid && (formValue.controls.dateOfBirth.dirty || formValue.controls.dateOfBirth.touched)"
+                            class="error">
+                            <!-- <div *ngIf="formValue.controls.lastName.hasError('pattern')" class="text-danger">last name
+                                contains only alphs numarics
+                            </div> -->
+                            <div *ngIf="formValue.controls.dateOfBirth.hasError('required')" class="text-danger">Email
+                                is required
+                            </div>
+                        </div>
+                    </div>
+                    <label for="gender">Gender:</label>
+                    <input type="radio" formControlName="gender" value="Male" name="gender" id="g1">
+                    <label for="gender">Male</label>
+                    <div *ngIf="formValue.controls.gender.invalid && (formValue.controls.dateOfBirth.dirty || formValue.controls.gender.touched)"
+                        class="error">
+                        <!-- <div *ngIf="formValue.controls.lastName.hasError('pattern')" class="text-danger">last name
+                                contains only alphs numarics
+                            </div> -->
+                        <div *ngIf="formValue.controls.gender.hasError('required')" class="text-danger">Gender
+                            is required
+                        </div>
+                    </div>
+
+                    <input type="radio" formControlName="gender" value="Female" name="gender" id="g2">
+                    <label for="g2">Female</label>
+                    <div *ngIf="formValue.controls.gender.invalid && (formValue.controls.dateOfBirth.dirty || formValue.controls.gender.touched)"
+                        class="error">
+                        <!-- <div *ngIf="formValue.controls.lastName.hasError('pattern')" class="text-danger">last name
+                                contains only alphs numarics
+                            </div> -->
+                        <div *ngIf="formValue.controls.gender.hasError('required')" class="text-danger">Gender
+                            is required
+                        </div>
+                    </div>
+
+                    <!-- <div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div> -->
+                    <div class="modal-footer">
+                        <button type="button" id="cancel" class="btn btn-secondary"
+                            data-bs-dismiss="modal">Close</button>
+                        <button type="submit" [disabled]="formValue.invalid" (click)="postUserDetails()" *ngIf="showAdd"
+                            class="btn btn-primary">Add</button>
+                        <button type="submit" (click)="updateUserDetails()" *ngIf="showUpdate"
+                            class="btn btn-primary">Update</button>
+                    </div>
+                </form>
+            </div>
+            <!-- <div class="container mt-5 mb-5">
+                <div class="row">
+                    <div *ngFor="let d of showPost | paginate: { itemsPerPage: 10, currentPage: page,
+                    totalItems:totalLength: }" class="col-lg-4 border text-center mt-4 p-1">
+                    </div>
+                    <p><b>{{d.title}}</b></p>
+                </div>
+                <pagination-controls (pageChange)="page = $event"></pagination-controls>
+            </div> -->
+        </div>
+    </div>
+</div>
