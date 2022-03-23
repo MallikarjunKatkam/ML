@@ -1,0 +1,13 @@
+{
+    "posts": [
+      {
+        "id": 1,
+        "firstName": "Mallikarjun",
+        "lastName": "Katkam",
+        "mobileNumber": 9666332337,
+        "emailAddress": "mallikarjunkatkam.mk@gmail.com",
+        "dateOfBirth": "1998-02-10",
+        "gender": "Male"
+      }
+    ]
+  }

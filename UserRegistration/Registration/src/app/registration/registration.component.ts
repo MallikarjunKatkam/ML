@@ -18,14 +18,10 @@ export class RegistrationComponent implements OnInit {
   showUpdate !: boolean;
   totalLength:any;
   page:number=1;
-  showPost:any=[];
   constructor(private formBuilder: FormBuilder, private api: ApiService) {
     
   }
-
-
-  
-
+  showPost:any=[];
   ngOnInit(): void {
     this.formValue = this.formBuilder.group({
       firstName: ['',[Validators.required,Validators.pattern("^[a-zA-Z0-9]+$")]],
