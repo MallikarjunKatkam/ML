@@ -40,7 +40,6 @@ use pagination per page should show min 10 users and add drop down for show user
         </tr>
     </thead>
     <tbody>
-        <!-- <tr *ngFor="let row of userData"> -->
         <tr *ngFor="let row of showPost | 
         paginate: { itemsPerPage: 10, currentPage: page}">
             <td>{{row.id}}</td>
@@ -88,13 +87,6 @@ use pagination per page should show min 10 users and add drop down for show user
                             </div>
                         </div>
                     </div>
-                    <!-- <span class="text-danger" *ngIf="formValue.controls['firstName'].dirty&&formValue.hasError(required,firstName)">*First name is Required</span> -->
-                    <!-- <div *ngIf="formValue.controls['firstName'].invalid && formValue.controls['firstName'].touched" class="alert alert-danger">
-                        
-                        <div *ngIf="formValue.controls['firstName'].errors.required">
-                            Name is required.
-                        </div>
-                    </div> -->
                     <div class="form-group">
                         <label for="lastName">LastName:</label>
                         <input type="text" formControlName="lastName" class="form-control" id="lastName"
@@ -176,10 +168,6 @@ use pagination per page should show min 10 users and add drop down for show user
                             is required
                         </div>
                     </div>
-
-                    <!-- <div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div> -->
                     <div class="modal-footer">
                         <button type="button" id="cancel" class="btn btn-secondary"
                             data-bs-dismiss="modal">Close</button>
