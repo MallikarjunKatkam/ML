@@ -32,12 +32,6 @@ export class RegistrationComponent implements OnInit {
       gender: ['',[Validators.required]]
     })
     this.getAllUserDetails();
-    // this.api.getUsers().subscribe((result)=>{
-    //   this.showPost=result;
-    //   this.totalLength=result;
-    //   console.log(this.showPost);
-    // })
-    // this.items = Array(10).fill(0).map((x, i) => ({ id: (i + 1), name: `Item ${i + 1}` }));
   }
   postUserDetails() {
     this.registrationModel.firstName = this.formValue.value.firstName;
@@ -61,6 +55,9 @@ export class RegistrationComponent implements OnInit {
   getAllUserDetails() {
     this.api.getUsers().subscribe(res => {
       this.userData = res;
+      this.showPost=res;
+      this.totalLength=res;
+      console.log(this.userData);
     })
   }
 

@@ -185,16 +185,58 @@ use pagination per page should show min 10 users and add drop down for show user
                     </div>
                 </form>
             </div>
-            <!-- <div class="container mt-5 mb-5">
-                <div class="row">
-                    <div *ngFor="let d of showPost | 
-                    paginate: { itemsPerPage: 10, currentPage: page,
-                    totalItems:totalLength: }" class="col-lg-4 border text-center mt-4 p-1">
-                    </div>
-                    <p><b>{{d.title}}</b></p>
-                </div>
-                <pagination-controls (pageChange)="page = $event"></pagination-controls>
-            </div> -->
         </div>
     </div>
 </div>
+
+<!-- <table class="table mt-3"> -->
+<div>
+    <table class="container mt-5 mb-5">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Mobile Number</th>
+                <th scope="col">Email Address</th>
+                <th scope="col">Date Of Birth</th>
+                <th scope="col">Gender</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- <tr *ngFor="let row of userData"> -->
+            <tr *ngFor="let row of showPost | 
+            paginate: { itemsPerPage: 2, currentPage: page,
+                totalItems:totalLength }" class="col-lg-4 border text-center mt-4 p-1">
+                <td>{{row.id}}</td>
+                <td>{{row.firstName}}</td>
+                <td>{{row.lastName}}</td>
+                <td>{{row.mobileNumber}}</td>
+                <td>{{row.emailAddress}}</td>
+                <td>{{row.dateOfBirth}}</td>
+                <td>{{row.gender}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div>
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+</div>
+
+<!-- <div class="container mt-5 mb-5">
+    <div class="row">
+        <div *ngFor="let row of showPost | 
+        paginate: { itemsPerPage: 2, currentPage: page,
+            totalItems:totalLength }" class="col-lg-4 border text-center mt-4 p-1">
+            <td>{{row.id}}</td>
+            <td>{{row.firstName}}</td>
+            <td>{{row.lastName}}</td>
+            <td>{{row.mobileNumber}}</td>
+            <td>{{row.emailAddress}}</td>
+            <td>{{row.dateOfBirth}}</td>
+            <td>{{row.gender}}</td>
+        </div>
+        <pagination-controls (pageChange)="page = $event"></pagination-controls>
+    </div>
+</div> -->
