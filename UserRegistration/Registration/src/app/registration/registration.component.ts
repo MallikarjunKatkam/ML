@@ -16,23 +16,18 @@ export class RegistrationComponent implements OnInit {
   userData !: any;
   showAdd !: boolean;
   showUpdate !: boolean;
-  totalLength:any;
+
   page:number=1;
+  showPost:Array<any>=[];
+  
   constructor(private formBuilder: FormBuilder, private api: ApiService) {
-    
   }
-  showPost:any=[];
+  
   ngOnInit(): void {
-    this.formValue = this.formBuilder.group({
-      firstName: ['',[Validators.required,Validators.pattern("^[a-zA-Z0-9]+$")]],
-      lastName: ['',[Validators.required,Validators.pattern("^[a-zA-Z0-9]+$")]],
-      mobileNumber: ['',[Validators.required,Validators.pattern("^(0|91)?[6-9]{1}[0-9]{9}$")]],
-      emailAddress: ['',[Validators.required,Validators.email]],
-      dateOfBirth: ['',[Validators.required,]],
-      gender: ['',[Validators.required]]
-    })
     this.getAllUserDetails();
   }
+
+  // Posting Data into the Form
   postUserDetails() {
     this.registrationModel.firstName = this.formValue.value.firstName;
     this.registrationModel.lastName = this.formValue.value.lastName;
@@ -52,21 +47,37 @@ export class RegistrationComponent implements OnInit {
       alert("Something Went Wrong");
     })
   }
+
+  // Validations
+  userValidations(){
+    this.formValue = this.formBuilder.group({
+      firstName: ['',[Validators.required,Validators.pattern("^[a-zA-Z0-9]+$")]],
+      lastName: ['',[Validators.required,Validators.pattern("^[a-zA-Z0-9]+$")]],
+      mobileNumber: ['',[Validators.required,Validators.pattern("^(0|91)?[6-9]{1}[0-9]{9}$")]],
+      emailAddress: ['',[Validators.required,Validators.email]],
+      dateOfBirth: ['',[Validators.required,]],
+      gender: ['',[Validators.required]]
+    })
+  }
+
+  // Getting All User Details
   getAllUserDetails() {
+    this.userValidations();
     this.api.getUsers().subscribe(res => {
       this.userData = res;
       this.showPost=res;
-      this.totalLength=res;
       console.log(this.userData);
     })
   }
 
+  //Deleting Users
   deleteUser(row: any) {
     this.api.deleteUser(row.id).subscribe(res => {
       alert("User Was Deleted Successfully!");
       this.getAllUserDetails();
     })
   }
+
 
   onEdit(row: any) {
     this.showAdd = false;
@@ -80,6 +91,7 @@ export class RegistrationComponent implements OnInit {
     this.formValue.controls['gender'].setValue(row.gender);
   }
 
+  //Updating Users
   updateUserDetails() {
     this.registrationModel.firstName = this.formValue.value.firstName;
     this.registrationModel.lastName = this.formValue.value.lastName;

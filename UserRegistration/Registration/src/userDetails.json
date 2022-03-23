@@ -89,6 +89,24 @@
       "emailAddress": "manu@gmail.com",
       "dateOfBirth": "2015-02-16",
       "gender": "Male"
+    },
+    {
+      "id": 11,
+      "firstName": "Naveen",
+      "lastName": "Velpuri",
+      "mobileNumber": 7846663372,
+      "emailAddress": "nav@gmail.com",
+      "dateOfBirth": "2019-02-26",
+      "gender": "Male"
+    },
+    {
+      "id": 12,
+      "firstName": "Praveen",
+      "lastName": "shetti",
+      "mobileNumber": 7443442344,
+      "emailAddress": "prav@gmail.com",
+      "dateOfBirth": "2011-06-18",
+      "gender": "Male"
     }
   ]
 }
